@@ -1,11 +1,12 @@
 import Mock from 'mockjs';
 const LoginUsers = [
+  //用户信息修改
   {
     id: 1,
     username: 'admin',
-    password: '123456',
-    avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
-    name: '张某某'
+    password: 'admin',
+    avatar: '../assets/user.png',
+    name: '洋洋'
   }
 ];
 
@@ -22,4 +23,7 @@ for (let i = 0; i < 86; i++) {
   }));
 }
 
-export { LoginUsers, Users };
+export {
+  LoginUsers,
+  Users
+};

@@ -5,13 +5,13 @@
 				{{collapsed?'':sysName}}
 			</el-col>
 			<el-col :span="10">
-				<div class="tools" @click.prevent="collapse">
+				<!-- <div class="tools" @click.prevent="collapse">
 					<i class="fa fa-align-justify"></i>
-				</div>
+				</div> -->
 			</el-col>
 			<el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
-					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
+					<span class="el-dropdown-link userinfo-inner"><img :src="sysUserAvatar" /> {{sysUserName}}</span>
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item>我的消息</el-dropdown-item>
 						<el-dropdown-item>设置</el-dropdown-item>
@@ -50,18 +50,25 @@
 					</li>
 				</ul>
 			</aside>
+
+			<!-- 右边转换页面得内容 -->
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
 					<el-col :span="24" class="breadcrumb-container">
+
+						<!-- 右边页面左上角得文字 -->
 						<strong class="title">{{$route.name}}</strong>
+
 						<el-breadcrumb separator="/" class="breadcrumb-inner">
 							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+								<!--  右边页面右上角得文字  -->
 								{{ item.name }}
 							</el-breadcrumb-item>
 						</el-breadcrumb>
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
 						<transition name="fade" mode="out-in">
+							<!-- 路由占位符，根据路由选择跳转页面 -->
 							<router-view></router-view>
 						</transition>
 					</el-col>
@@ -75,7 +82,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'VUEADMIN',
+				sysName:'智慧工地',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: '',

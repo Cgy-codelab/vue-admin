@@ -1,15 +1,16 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+  <el-form  :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="new-password" placeholder="密码"></el-input>
     </el-form-item>
     <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
-    <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+    
+    <el-form-item style="width:100%;" >
+      <el-button  type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
       <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
@@ -24,9 +25,10 @@
         logining: false,
         ruleForm2: {
           account: 'admin',
-          checkPass: '123456'
+          checkPass: 'admin'
         },
         rules2: {
+          // 焦点失去时触发
           account: [
             { required: true, message: '请输入账号', trigger: 'blur' },
             //{ validator: validaePass }
@@ -40,6 +42,11 @@
       };
     },
     methods: {
+    
+      handle(){
+        if(event.keyCode==13)
+        document.getElementById("btn").click();
+      },
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
       },
@@ -51,6 +58,7 @@
             this.logining = true;
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
+            // 验证密码
             requestLogin(loginParams).then(data => {
               this.logining = false;
               //NProgress.done();
@@ -71,7 +79,19 @@
           }
         });
       }
+    },
+    // 生命周期函数，vue实例创建时调用
+    created(){ 
+      let that = this;
+      document.onkeydown =function(e)
+      {
+     var key=window.event.keyCode;
+      if(that.$route.path=='/login'&&(key==13||key==100)){//验证在登录界面和按得键是回车键enter
+        that.handleSubmit2("ruleForm2");//登录函数
+      }
     }
+    
+  }
   }
 
 </script>
